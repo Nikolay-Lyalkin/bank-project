@@ -1,3 +1,5 @@
+from datetime import datetime as dt
+
 import masks
 
 
@@ -9,3 +11,11 @@ def mask_account_card(account_card: str) -> str:
         return f"{list_account_card[0]} {masks.get_mask_account(int(list_account_card[1]))}"
     else:
         return f"{list_account_card[0]} {masks.get_mask_card_number(int(list_account_card[1]))}"
+
+
+def get_data(data: str) -> str:
+    """возвращает строку с датой"""
+
+    type_datetime = dt.strptime(data, "%Y-%m-%dT%H:%M:%S.%f")
+    correct_data = type_datetime.strftime("%d.%m.%Y")
+    return correct_data
