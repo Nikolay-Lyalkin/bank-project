@@ -11,6 +11,6 @@ def get_mask_account(num_account: str) -> str:
     """возвращает максу банковского счёта"""
 
     num_account = str(num_account)
-    if len(num_account) != 6 or num_account.isdigit() == False:
+    if len(num_account) != 20 or num_account.isdigit() == False:
         return "Вы ввели неверный номер счёта"
     return f"**{num_account[-4:]}"

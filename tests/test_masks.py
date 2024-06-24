@@ -18,9 +18,9 @@ def test_get_mask_card_number(number, expected):
 @pytest.mark.parametrize(
     "account, expected",
     [
-        ("123456", "**3456"),
+        ("12345678901234567890", "**7890"),
         ("", "Вы ввели неверный номер счёта"),
-        ("1234as", "Вы ввели неверный номер счёта"),
+        ("1234as12121234567890", "Вы ввели неверный номер счёта"),
     ],
 )
 def test_get_mask_account(account, expected):
