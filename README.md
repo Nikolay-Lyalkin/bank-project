@@ -21,7 +21,8 @@ Bank project - это виджет, который показывает неск
   - filter_by_currency() - фильтрует операции по заданной валюте
   - transaction_descriptions() - возвращает описание операций
   - card_number_generator() - генерирует номер карты в заданном диапазоне
-
+3. Модуль decorators.py - содержит декораторы.
+- @log() - логирует вызов функции и ее результат в файл или в консоль.
 ## Тестирование:
-В пакете tests проведено тестирование модулей masks, processing, widget, generators.
+В пакете tests проведено тестирование модулей masks, processing, widget, generators, decorators.
 В модуле conftest содержатся фикстуры для тестирования.
