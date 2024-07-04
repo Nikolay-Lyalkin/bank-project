@@ -1,8 +1,7 @@
 import json
 from typing import Any
-from external_api import convertation
+from src.external_api import convertation
 
-filename = "C:/Users/sereg/OneDrive/Рабочий стол/bank_project/data/operations.json"
 
 def get_data_by_operations(filename: str) -> list[dict]:
     """Принимает путь к json файлу и возвращает словарь с данными"""
@@ -31,7 +30,3 @@ def amount_transaction(id_transaction: int, filename: str) -> Any:
                 return convert
             return d["operationAmount"]["amount"]
 
-
-# print(get_data_by_operations(filename))
-
-# print(amount_transaction(939719570, filename))
