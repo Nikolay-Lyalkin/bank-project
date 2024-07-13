@@ -30,7 +30,8 @@ def get_data_by_operations(filename: str) -> list[dict]:
 
 
 def amount_transaction(transaction: dict) -> Any:
-    """Принимает на вход транзакцию и возвращает сумму транзакции в рублях"""
+    """Принимает на вход словарь с информацией о транзакции и возвращает сумму транзакции в рублях, если сумма
+    транзакции в USD, EUR, то сумма будет конвертирована в RUB"""
     if transaction["operationAmount"]["currency"]["code"] in ["USD", "EUR"]:
         from_currency = transaction["operationAmount"]["currency"]["code"]
         to_currency = "RUB"

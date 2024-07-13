@@ -21,7 +21,7 @@ def get_mask_card_number(num_card: str) -> str:
 
 
 def get_mask_account(num_account: str) -> str:
-    """возвращает максу банковского счёта"""
+    """возвращает маску банковского счёта"""
 
     num_account = str(num_account)
     if len(num_account) != 20 or not num_account.isdigit():
