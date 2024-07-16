@@ -3,6 +3,8 @@ from typing import Any
 
 
 def log(filename: Any = None) -> Any:
+    """Автоматически логирует начало и конец выполнения функции, а также ее результаты или возникшие ошибки"""
+
     def wrapper(func: Any) -> Any:
         @wraps(func)
         def inner(*args: Any, **kwargs: Any) -> Any:
