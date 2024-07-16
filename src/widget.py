@@ -4,7 +4,7 @@ from src import masks
 
 
 def mask_account_card(account_card: str) -> str:
-    """общая маскировка карты и счета"""
+    """Общая маскировка карты и счета"""
 
     list_account_card = " ".join(account_card.split(" ")[0:-1])
     if list_account_card[0] == "Счет" or list_account_card[0] == "Счёт":
@@ -14,7 +14,7 @@ def mask_account_card(account_card: str) -> str:
 
 
 def get_data(data: str) -> str:
-    """возвращает строку с датой"""
+    """Возвращает строку с датой"""
 
     type_datetime = dt.strptime(data, "%Y-%m-%dT%H:%M:%S.%f")
     correct_data = type_datetime.strftime("%d.%m.%Y")
