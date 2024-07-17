@@ -2,6 +2,8 @@ import json
 import logging
 from typing import Any
 
+import pandas
+
 from src.external_api import convertation
 
 filepath_logger = "C:\\Users\\sereg\\OneDrive\\Рабочий стол\\bank_project\\logs\\utils.log"
@@ -14,19 +16,31 @@ logger.setLevel(logging.INFO)
 
 
 def get_data_by_operations(filename: str) -> list[dict]:
-    """Принимает путь к json файлу и возвращает список с вложенными словарями с информацией о транзакциях"""
-    json_data_transaction = []
+    """Принимает путь к файлам json, csv, xlsx и возвращает список c вложенными
+    словарями с информацией о транзакциях"""
+    data_transaction = []
     try:
-        with open(filename, "r", encoding="utf-8") as f_obg:
-            json_data_transaction = json.load(f_obg)
+        if filename.endswith(".json"):
+            with open(filename, "r", encoding="utf-8") as f_obg:
+                data_transaction = json.load(f_obg)
+                logger.info("Спискок с вложенными словарями с информацией о транзакциях успешно создан")
+                return data_transaction
+        elif filename.endswith(".csv"):
+            data_csv = pandas.read_csv(filename, delimiter=";")
+            data_transaction = data_csv.to_dict(orient="records")
             logger.info("Спискок с вложенными словарями с информацией о транзакциях успешно создан")
-            return json_data_transaction
+            return data_transaction
+        elif filename.endswith(".xlsx"):
+            data_xlsx = pandas.read_excel(filename)
+            data_transaction = data_xlsx.to_dict(orient="records")
+            logger.info("Спискок с вложенными словарями с информацией о транзакциях успешно создан")
+            return data_transaction
     except json.JSONDecodeError as ex:
         logger.error(f"{filename} вызывает {ex}")
-        return json_data_transaction
+        return data_transaction
     except FileNotFoundError as ex:
         logger.error(f"{filename} вызывает {ex}")
-        return json_data_transaction
+        return data_transaction
 
 
 def amount_transaction(transaction: dict) -> Any:
