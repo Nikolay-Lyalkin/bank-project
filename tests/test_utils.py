@@ -93,7 +93,7 @@ def test_get_data_by_operations_json_JSONDecodeError():
 
 def test_get_data_by_operations_FileNotFoundError():
     """Функуия-тест для проверки. что исключение FileNotFoundError обрабатывается корректно"""
-    assert get_data_by_operations("filename") == "None"
+    assert get_data_by_operations("filename") == None
 
 
 @patch("requests.get")

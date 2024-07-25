@@ -29,6 +29,3 @@ def get_mask_account(num_account: str) -> str:
         return "Вы ввели неверный номер счёта"
     logger.info(f"Была выполнена маскировка номера счёта {num_account}")
     return f"**{num_account[-4:]}"
-
-
-print(get_mask_card_number("1234123412341234"))

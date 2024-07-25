@@ -1,5 +1,6 @@
 import json
 import logging
+from collections import Counter
 from typing import Any
 
 import pandas
@@ -55,3 +56,22 @@ def amount_transaction(transaction: dict) -> Any:
         return convert
     logger.info(f"Конвертация из валюты {transaction['operationAmount']['currency']['code']} выполнена!")
     return transaction["operationAmount"]["amount"]
+
+
+def search_info(data_transactions: list[dict], search=None) -> list[dict]:
+    """Принимает на вход список словарией с информацией о транзакциях и строку поиска с описанием транзакции,
+    возвращает список словарей с результатом поиска"""
+    if search:
+        result_search = [i for i in data_transactions if search in i["description"].lower()]
+    else:
+        search = input("Поиск транзаакции по описанию: ").lower()
+        result_search = [i for i in data_transactions if search in i["description"].lower()]
+    return result_search
+
+
+def counter_description(data_transactions: list[dict], categories: str) -> dict:
+    """Принимает на вход список словарией с информацией о транзакциях и список категорий транзакций, возвращает
+    словарь, в котором ключи — это названия категорий, а значения — это количество операций в каждой категории"""
+    list_categories = [i["description"] for i in data_transactions if i["description"] in categories]
+    counted_category = Counter(list_categories)
+    return dict(counted_category)
