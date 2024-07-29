@@ -66,7 +66,10 @@ if __name__ == "__main__":
     while filter_by_rub_transactions not in ["да", "нет"]:
         filter_by_rub_transactions = input("Выводить только рублевые тразакции? Да/Нет\n")
     if filter_by_rub_transactions == "да":
-        result_filter = [i for i in result_filter if i["operationAmount"]["currency"]["code"] == "RUB"]
+        if file_number == 1:
+            result_filter = [i for i in result_filter if i["operationAmount"]["currency"]["code"] == "RUB"]
+        else:
+            result_filter = [i for i in result_filter if i["currency_code"] == "RUB"]
 
     # Фильтр по определенному слову в описании транзакции
     filter_by_word = input("Отфильтровать список транзакций по определенному слову в описании? Да/Нет\n")
@@ -76,7 +79,13 @@ if __name__ == "__main__":
     слову в описании? Да/Нет\n"
         )
     if filter_by_word == "да":
-        result_filter = search_info(result_filter)
+        result_filter = search_info(
+            result_filter,
+            search_string=input(
+                "Введите слово или сочетание слов по которому\
+ хотите отфильтровать\n"
+            ),
+        )
 
     # Результат
     if result_filter:
@@ -96,6 +105,6 @@ if __name__ == "__main__":
                     f"Сумма: {result['operationAmount']['amount']} {result['operationAmount']['currency']['name']}\n"
                 )
             else:
-                print(f"Сумма: {result['amount']} {result['currency_name']}\n")
+                print(f"Сумма: {result['amount']} {result['currency_code']}\n")
     else:
         print("Не найдено ни одной транзакции, подходящей под ваши условия фильтрации.")

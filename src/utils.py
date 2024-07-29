@@ -1,5 +1,6 @@
 import json
 import logging
+import re
 from collections import Counter
 from typing import Any
 
@@ -58,20 +59,21 @@ def amount_transaction(transaction: dict) -> Any:
     return transaction["operationAmount"]["amount"]
 
 
-def search_info(data_transactions: list[dict], search=None) -> list[dict]:
+def search_info(data_transactions: list[dict], search_string: str) -> list[dict]:
     """Принимает на вход список словарией с информацией о транзакциях и строку поиска с описанием транзакции,
     возвращает список словарей с результатом поиска"""
-    if search:
-        result_search = [i for i in data_transactions if search in i["description"].lower()]
-    else:
-        search = input("Поиск транзаакции по описанию: ").lower()
-        result_search = [i for i in data_transactions if search in i["description"].lower()]
+
+    result_search = [
+        i for i in data_transactions if re.search(search_string, str(i["description"]), flags=re.IGNORECASE)
+    ]
     return result_search
 
 
-def counter_description(data_transactions: list[dict], categories: str) -> dict:
+def counter_description(data_transactions: list[dict], categories: list) -> dict:
     """Принимает на вход список словарией с информацией о транзакциях и список категорий транзакций, возвращает
     словарь, в котором ключи — это названия категорий, а значения — это количество операций в каждой категории"""
+    if not isinstance(categories, list):
+        raise ValueError("Categories should be a list of strings")
     list_categories = [i["description"] for i in data_transactions if i["description"] in categories]
     counted_category = Counter(list_categories)
     return dict(counted_category)
